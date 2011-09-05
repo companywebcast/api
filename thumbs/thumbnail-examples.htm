@@ -1,0 +1,120 @@
+<html>
+	<head>
+	<title>Thumbnail examples</title>
+	<style>
+	html{
+		font-family:tahoma;
+	}
+	h1{
+		font-size:3em;
+	}
+	h2{
+		font-size:2em;
+		border-bottom:1px solid gray;
+	}
+	h3{
+		font-size:1.5em;
+		border-bottom:1px solid silver;
+	}
+	h4{
+		font-size:1em;
+	}
+	pre{
+		padding:15px;
+		border:1px solid silver;
+		background-color:#FFFFF0;
+	}
+	</style>
+	</head>
+	<body>
+		<h1>Thumbnail examples</h1>
+
+		<h2>Resoluations and aspectratio</h2>
+		<p>This page demonstrates several ways to retrieve thumbsnails for an indexed webcast. Thumbnails are small images captured from the video stream at certain points. These thumbnails are available at the following sizes:</p> 
+
+		<ul>
+			<li>Original size</li>
+			<li>320x240</li>
+			<li>160x120</li>
+		</ul>
+
+		<p>The 320x240 and 160x120 resolution thumbnails are in 4:3 aspect ratio and if the source is in another aspectratio like for example 16:9 then these frames will be cropped to 4:3 (pan & scan method). If the original aspect ratio is required then you use must the <b>original</b> format but keep in mind that the resolution of this thumb is the same as the source.</p>
+
+		<h2>Retrieving a thumb at a specific location</h2>
+		
+		<p>There are several ways to retrieve a thumbnail:</p>
+		
+		<ul>
+			<li>Default image</li>
+			<li>By time offset</li>
+			<li>By actual time</li>
+			<li>By percentage</li>
+		</ul>
+		
+		<p>The default image is always available and the other types are only available for registered users. This is only of interest when you have webcasts which require user input like for example a password or e-mail address. This is to protect the content to be viewed for users that are not authorized to view such content.</p>
+		
+		<h3>Default image</h3>
+		
+	
+<pre>
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240" /&gt;
+</pre>
+		
+		<h4>Original</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original" alt="Original default frame"></img>
+		<h4>320x240</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240" alt="320x240 default frame></img>
+		<h4>160x120</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120 alt="160x120 default frame"></img>
+
+		
+		<h3>By time offset</h3>
+
+<pre>
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/seek?offset=00:05:00" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/seek?offset=00:05:00" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/seek?offset=00:05:00" /&gt;
+</pre>
+
+		<h4>Original</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/seek?offset=00:05:00" alt="Original frame at 5 minutes from start."></img>
+		<h4>320x240</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/seek?offset=00:05:00" alt="320x240 frame at 5 minutes from start."></img>
+		<h4>160x120</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/seek?offset=00:05:00" alt="160x120 frame at 5 minutes from start."></img>
+
+		<h3>By actual time</h3>
+
+<pre>
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/seek?datetime=2010-10-21T12:58:50" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/seek?datetime=2010-10-21T12:58:50" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/seek?datetime=2010-10-21T12:58:50" /&gt;
+</pre>
+
+		<h4>Original</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/seek?datetime=2010-10-21T12:58:50" alt="Original frame at oktober 21 2010 12:58:50 utc."></img>
+		<h4>320x240</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/seek?datetime=2010-10-21T12:58:50" alt="320x240 frame at oktober 21 2010 12:58:50 utc."></img>
+		<h4>160x120</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/seek?datetime=2010-10-21T12:58:50" alt="160x120 frame at oktober 21 2010 12:58:50 utc."></img>
+
+		
+		<h3>By percentage</h3>
+
+<pre>
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/60.jpg" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/60.jpg" /&gt;
+&lt;img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/60.jpg" /&gt;
+</pre>
+
+		<h4>Original</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/original/60.jpg" alt="Original frame at 60 percent."></img>
+		<h4>320x240</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/320x240/60.jpg" alt="320x240 frame at 60 percent."></img>
+		<h4>160x120</h4>
+		<img src="http://player.companywebcast.com/provinciezh/20101021_1/nl/thumb/160x120/60.jpg" alt="160x120 frame at 60 percent."></img>
+		
+	</body>
+</html>
