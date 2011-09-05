@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DownloadConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Username>testuser</Username>
+  <Password>0123456789</Password>
+  <RetrieveWebcastAttachments>false</RetrieveWebcastAttachments>
+  <RetrieveWebcastStreams>false</RetrieveWebcastStreams>
+  <RetrieveTopicAttachments>false</RetrieveTopicAttachments>
+  <RetrieveSlideAttachments>false</RetrieveSlideAttachments>
+  <ExportWebcastXML>true</ExportWebcastXML>
+  <ReplaceIfExists>false</ReplaceIfExists>
+  <FilePath>c:\Cwc.Downloader.inc</FilePath>
+  <CustomerName xsi:nil="true" />
+  <PeriodFrom xsi:nil="true" />
+  <PeriodTo xsi:nil="true" />
+  <DaysAgoFromTodayPeriodFrom xsi:nil="true" />
+  <DaysAgoFromTodayPeriodTo xsi:nil="true" />
+  <UseProxyMode>false</UseProxyMode>
+</DownloadConfig>

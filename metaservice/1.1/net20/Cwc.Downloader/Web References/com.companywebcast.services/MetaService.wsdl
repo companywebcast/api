@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.companywebcast.com/pulse/metaservice/v1" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MetaService" targetNamespace="http://schemas.companywebcast.com/pulse/metaservice/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_MetaService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://schemas.companywebcast.com/pulse/metaservice/v1">
+      <xsd:element name="WebcastGet">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="Username" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Password" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Code" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Language" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WebcastGetResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="WebcastGetResult" type="xsd:int" />
+            <xsd:element minOccurs="0" name="Webcast" nillable="true" type="tns:Webcast" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="Webcast">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast data</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="ActualEnd" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the actual webcast end time.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ActualStart" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the actual webcast start time.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Annotations" nillable="true" type="tns:Annotations">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast comments.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Attachments" nillable="true" type="tns:Attachments">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the a set of custom attachments for this webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Code" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the code that is a combination of owner and webcast name to uniquely identify this webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CustomerName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the owner of the webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast description.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Id" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the unieque identifier.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Language" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast language code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Languages" nillable="true" type="tns:Languages">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast languages.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Location" nillable="true" type="tns:Location">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets the location information structure.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="MediaStreams" nillable="true" type="tns:MediaStreams">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the audio/video streams</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Reference" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets a custom (external) reference.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RegisterUrl" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast registration url which a viewer must pass to get access to webcast resources.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ScheduledStart" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the planned start date/time</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Slides" nillable="true" type="tns:Slides">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the slides available to present during the webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Speakers" nillable="true" type="tns:Speakers">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the collection of speaker events.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Status" type="tns:WebcastStatus">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the current status</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Tags" nillable="true" type="tns:Tags">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets the tag collection to add or remove tags to/from.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Title" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the Webcast title</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Topics" nillable="true" type="tns:Topics">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast topics that are addressed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Webcast" nillable="true" type="tns:Webcast" />
+      <xsd:complexType name="Annotations">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Annotation collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Annotation" nillable="true" type="tns:Annotation" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Annotations" nillable="true" type="tns:Annotations" />
+      <xsd:complexType name="Annotation">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast annotation.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Events" nillable="true" type="tns:Events">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the moment in the webcast to where this comments refers to.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Text" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the comment description.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Annotation" nillable="true" type="tns:Annotation" />
+      <xsd:complexType name="Events">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Event collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Event" nillable="true" type="tns:Event" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Events" nillable="true" type="tns:Events" />
+      <xsd:complexType name="Event">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast event information.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="End" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the time the event actually ended.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Start" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the time the event actually took place.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Event" nillable="true" type="tns:Event" />
+      <xsd:complexType name="Attachments">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Attachment collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Attachment" nillable="true" type="tns:Attachment" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Attachments" nillable="true" type="tns:Attachments" />
+      <xsd:complexType name="Attachment">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Attachment info.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="ContentType" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the attachment contenttype indicating the data format of the attachment.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the attachment description.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Location" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the location where the attachment can be downloaded.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Size" nillable="true" type="xsd:long">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the attachment size in bytes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Attachment" nillable="true" type="tns:Attachment" />
+      <xsd:complexType name="Languages">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Language code collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Languages" nillable="true" type="tns:Languages" />
+      <xsd:complexType name="Location">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Describes the location of the webcast event. This can be in postal and or geographical format.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Address" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the first address line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="City" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the second address line.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Coordinates" nillable="true" type="tns:Coordinates">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the geographical location.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CountryCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the two letter iso country code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="PostalCode" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the postal code.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="State" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the state.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TimeZoneName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets time-zone identifier based on ISO zone tab name. See http://en.wikipedia.org/wiki/Zone.tab</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Location" nillable="true" type="tns:Location" />
+      <xsd:complexType name="Coordinates">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Describes the geographical location.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Latitude" type="xsd:double">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the latitude.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Longitude" type="xsd:double">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the longitude.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Coordinates" nillable="true" type="tns:Coordinates" />
+      <xsd:complexType name="MediaStreams">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Media stream collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="MediaStream" nillable="true" type="tns:MediaStream" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="MediaStreams" nillable="true" type="tns:MediaStreams" />
+      <xsd:complexType name="MediaStream">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast audio/video stream information.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Attachment">
+            <xsd:sequence>
+              <xsd:element name="Bitrate" type="xsd:unsignedInt">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the (maximum) bitrate of this data file/stream.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Dimensions" nillable="true" type="tns:Dimensions">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the dimensions of this file/stream when type is Video.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="End" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the actual utc end of the stream.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="Gaps" nillable="true" type="tns:Gaps">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets a collection of gaps that mark missing parts within this multimedia stream.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="Id" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the unieque identifier.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="Start" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the actual utc start of the stream.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element name="Type" type="tns:MediaStream.StreamType">
+                <xsd:annotation>
+                  <xsd:appinfo />
+                  <xsd:documentation>Gets or sets the stream type referring to either an audio or video stream.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="MediaStream" nillable="true" type="tns:MediaStream" />
+      <xsd:complexType name="Dimensions">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Dimensions specified in whole units.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Height" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the height.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Width" type="xsd:int">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the width.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Dimensions" nillable="true" type="tns:Dimensions" />
+      <xsd:complexType name="Gaps">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Multimedia gaps collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Gap" nillable="true" type="tns:Gap" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Gaps" nillable="true" type="tns:Gaps" />
+      <xsd:complexType name="Gap">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Gap describes a location within the current stream where an interruption occured in the live feed. All events in our system are recorded with "live" time. These times should be corrected during playback if the events will be used to display additional information during playback.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Correction" type="xsd:double">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the length in seconds of the interruption / gap.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="End" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the end in UTC when the actual live transmission got resumed.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Offset" type="xsd:double">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the offset in seconds in the current stream where there is a missing</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Start" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the start in UTC when the actual live transmission got interrupted.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Gap" nillable="true" type="tns:Gap" />
+      <xsd:simpleType name="MediaStream.StreamType">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Stream type data identifier.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:list>
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="Video" />
+              <xsd:enumeration value="Audio" />
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:list>
+      </xsd:simpleType>
+      <xsd:element name="MediaStream.StreamType" nillable="true" type="tns:MediaStream.StreamType" />
+      <xsd:complexType name="Slides">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Slide collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Slide" nillable="true" type="tns:Slide" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Slides" nillable="true" type="tns:Slides" />
+      <xsd:complexType name="Slide">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Slide information.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Attachments" nillable="true" type="tns:Attachments">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the possible slide source files containing just one slide.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Events" nillable="true" type="tns:Events">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the moments this slide should be presented in the webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Id" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the unique identifier.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="RawText" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the text that is shown in the slide for indexing / search purposes.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Reference" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the custom external reference.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Slide" nillable="true" type="tns:Slide" />
+      <xsd:complexType name="Speakers">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Speaker collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Speaker" nillable="true" type="tns:Speaker" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Speakers" nillable="true" type="tns:Speakers" />
+      <xsd:complexType name="Speaker">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Speaker information.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Category" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the category to which the speaker belongs.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Dob" nillable="true" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the date of birth.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Email" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the email adres to get in contact with the speaker.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Events" nillable="true" type="tns:Events">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the times the speaker spoke.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element xmlns:q1="http://schemas.companywebcast.com/pulse/metaservice/v1.1" minOccurs="0" name="Gender" type="q1:Gender">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the gender.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Homepage" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webpage that viewers can browse too to see additional information about the speaker.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Id" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the unieque identifier.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="ImageUrl" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets a url to a speaker image on the web.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Name" nillable="true" type="tns:Name">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the name of the speaker.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Phone" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the phone number to get in contact with the speaker.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Pob" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the place of birth.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Reference" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets a custom (external) reference.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Role" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the role the speaker has during the webcast or in his/her organisation.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Speaker" nillable="true" type="tns:Speaker" />
+      <xsd:complexType name="Name">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Person name.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="First" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the persons first name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Last" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the persons last name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Middle" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the persons middle name.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Title" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the name title.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Name" nillable="true" type="tns:Name" />
+      <xsd:simpleType name="WebcastStatus">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast status</xsd:documentation>
+        </xsd:annotation>
+        <xsd:list>
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="Ready">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:enumeration>
+              <xsd:enumeration value="PreLive">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:enumeration>
+              <xsd:enumeration value="Live">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:enumeration>
+              <xsd:enumeration value="PreIndexed">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:enumeration>
+              <xsd:enumeration value="Indexed">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:enumeration>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:list>
+      </xsd:simpleType>
+      <xsd:element name="WebcastStatus" nillable="true" type="tns:WebcastStatus" />
+      <xsd:complexType name="Tags">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>A collection of tags as string objects.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Tags" nillable="true" type="tns:Tags" />
+      <xsd:complexType name="Topics">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Topic collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Topic" nillable="true" type="tns:Topic" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Topics" nillable="true" type="tns:Topics" />
+      <xsd:complexType name="Topic">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Topic information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Attachments" nillable="true" type="tns:Attachments">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the attachments containing additional information addressed during this topic.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Events" nillable="true" type="tns:Events">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the moments when this topic has been addressed in the webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Id" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the unieque identifier.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Reference" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets a custom (external) reference.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Tags" nillable="true" type="tns:Tags">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets the tag collection to add or remove tags to/from.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Title" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the title of the topic.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Topic" nillable="true" type="tns:Topic" />
+      <xsd:element name="WebcastSearch">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="Username" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Password" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CustomerName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TopicTitle" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="SpeakerLastName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="WebcastTitle" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Reference" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TagNames" nillable="true" type="tns:Tags" />
+            <xsd:element minOccurs="0" name="QueryText" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="PeriodFrom" nillable="true" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="PeriodTo" nillable="true" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="Status" nillable="true" type="tns:WebcastStatus" />
+            <xsd:element minOccurs="0" name="PageNumber" type="xsd:int" />
+            <xsd:element minOccurs="0" name="PageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WebcastSearchResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="WebcastSearchResult" type="xsd:int" />
+            <xsd:element minOccurs="0" name="WebcastSummaries" nillable="true" type="tns:WebcastSummaries" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="WebcastSummaries">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast summary collection.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="WebcastSummary" nillable="true" type="tns:WebcastSummary" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="WebcastSummaries" nillable="true" type="tns:WebcastSummaries" />
+      <xsd:complexType name="WebcastSummary">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Webcast summary element.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Code" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets Webcast code to uniquely identify this webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CustomerName" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the name of the person or organization that commissioned the Webcast.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Hits" nillable="true" type="tns:Hits">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets the hits collection.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Languages" nillable="true" type="tns:Languages">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the language codes in which the webcast data is available. Indicates the languages this Webcast is available in.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ScheduledStart" type="xsd:dateTime">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets UTC representation of the date and time on which the Webcast is planned to start.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Status" type="tns:WebcastStatus">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the (current) webcast status.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Title" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the webcast title.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="WebcastSummary" nillable="true" type="tns:WebcastSummary" />
+      <xsd:complexType name="Hits">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>A collection of hit objects.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Hit" nillable="true" type="tns:Hit" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Hits" nillable="true" type="tns:Hits" />
+      <xsd:complexType name="Hit">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Describes a hit entry based on a search request.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Description" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the textual representation of the object containing its primary data.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Id" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the unique identification of this object within the platform.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element xmlns:q2="http://schemas.companywebcast.com/pulse/metaservice/v1.1" name="Type" type="q2:HitType">
+            <xsd:annotation>
+              <xsd:appinfo />
+              <xsd:documentation>Gets or sets the object type of the hit.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Hit" nillable="true" type="tns:Hit" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema xmlns:tns="http://schemas.companywebcast.com/pulse/metaservice/v1.1" elementFormDefault="qualified" targetNamespace="http://schemas.companywebcast.com/pulse/metaservice/v1.1">
+      <xsd:simpleType name="Gender">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>Describes the speaker gender.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Unknown">
+            <xsd:annotation>
+              <xsd:documentation>Gender is unknown.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Male">
+            <xsd:annotation>
+              <xsd:documentation>Speaker is male.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Female">
+            <xsd:annotation>
+              <xsd:documentation>Speaker is female.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="Gender" nillable="true" type="tns:Gender" />
+      <xsd:simpleType name="HitType">
+        <xsd:annotation>
+          <xsd:appinfo />
+          <xsd:documentation>The object hit type.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Slide">
+            <xsd:annotation>
+              <xsd:documentation>A slide object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Customer">
+            <xsd:annotation>
+              <xsd:documentation>A customer object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Topic">
+            <xsd:annotation>
+              <xsd:documentation>A topic object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Speaker">
+            <xsd:annotation>
+              <xsd:documentation>A speaker object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="Webcast">
+            <xsd:annotation>
+              <xsd:documentation>A webcast object.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="HitType" nillable="true" type="tns:HitType" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MetaService_WebcastGet_InputMessage">
+    <wsdl:part name="parameters" element="tns:WebcastGet" />
+  </wsdl:message>
+  <wsdl:message name="MetaService_WebcastGet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WebcastGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="MetaService_WebcastSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:WebcastSearch" />
+  </wsdl:message>
+  <wsdl:message name="MetaService_WebcastSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WebcastSearchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MetaService">
+    <wsdl:documentation>This is a read only Soap interface that provides access to a webcast's metadata. It contains a search method that allows client applications to find webcasts based on dates, speakers and topics.</wsdl:documentation>
+    <wsdl:operation name="WebcastGet">
+      <wsdl:documentation>This Method returns the integer WebcastGetResult, which is a statuscode for your request, and if available a Webcast object containing the metadata for the webcast you specified.
+@param Webcast A Webcast object. The Webcast object contains detailed information about a Webcast.
+@param Username Required, a string. The username provided to you by Companywebcast that allows access to the Webcast Management System, or was specifically created for consuming the MetaService.
+@param Password Required, a string. The password provided to you by Companywebcast that allows access to the Webcast Management System, or was specifically created for consuming the MetaService.
+@param Code Required, a string. Uniquely identifies the Webcast for which you want to retrieve metadata. To find out what the Code of a Webcast is, call WebcastSearch to retrieve a WebcastSummary and use its Code property.
+@param Language Optional, a string. The language for which you want to retrieve metadata. To find out which languages are available for a Webcast, call WebcastSearch to retrieve a WebcastSummary and use its Languages property. If you don't set a language, the default language will be returned.
+@return Status: 0 - Succes Negative = Server error Positive = Client error</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastGet" message="tns:MetaService_WebcastGet_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastGetResponse" message="tns:MetaService_WebcastGet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WebcastSearch">
+      <wsdl:documentation>Typically a client would call WebcastSearch to retrieve WebcastSummaries, which give some basic info about the webcasts that match the search parameters. A client would then use elements from a WebcastSummary as input parameters for a call to WebcastGet.
+@param WebcastSummaries A list of WebcastSummary objects. A WebcastSummary object contains basic information about a Webcast, and elements you need for WebcastGet.
+@param Username Required, a string. The user name provided to you by Companywebcast that allows access to the Webcast Management System, or was specifically created for consuming the MetaService.
+@param Password Required, a string. The password provided to you by Companywebcast that allows access to the Webcast Management System, or was specifically created for consuming the MetaService.
+@param CustomerName Optional, a string. The (partial) name of the person or organization that commissioned the Webcast. If you do not set OwnerName, you'll search in all Webcasts your MetaService account has access to.
+@param TopicTitle Optional, a string. The (partial) title of a topic that was discussed during a Webcast.
+@param SpeakerLastName Optional, a string. The (partial) last name of a speaker who was present during a Webcast.
+@param WebcastTitle Optional, a string. The (partial) title of a Webcast.
+@param Reference Optional, the value of this string must match any (external) reference field for a webcast to be returned.
+@param TagNames Optional, a collection of tag strings. Each tag must be available for a webcast to be returned.
+@param QueryText Optional
+@param PeriodFrom Optional, a DateTime/Calendar. The date and time at which to start WebcastSearch. Older webcasts will not be returned. Note that all dates and times used throughout the MetaService are UTC. You will have to compensate for your timezone when working with any DateTime in the MetaService.
+@param PeriodTo Optional, a DateTime/Calendar. The date and time at which to end WebcastSearch. Newer webcasts will not be returned. Note that all dates and times used throughout the MetaService are UTC. You will have to compensate for your timezone when working with any DateTime in the MetaService.
+@param Status Optional, an enumeration of type WebcastStatus. Multiple values can be set.
+@param PageNumber Optional, an integer. The amount of results returned by WebcastSearch is less or equal to the value of PageSize, with a maximum of 100. If more results are available they are spread out across Pages, which you can navigate with PageNumber. The first page is 0.
+@param PageSize Optional, an integer. The maximum amount of results returned by WebcastSearch. Note that WebcastSearch can not return more than 100 results per call, and attempting to do so will result in an error.
+@return Status: 0 - Succes Negative = Server error Positive = Client error</wsdl:documentation>
+      <wsdl:input wsaw:Action="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastSearch" message="tns:MetaService_WebcastSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastSearchResponse" message="tns:MetaService_WebcastSearch_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_MetaService" type="tns:MetaService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_MetaService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WebcastGet">
+      <soap:operation soapAction="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastGet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WebcastSearch">
+      <soap:operation soapAction="http://schemas.companywebcast.com/pulse/metaservice/v1/MetaService/WebcastSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MetaService">
+    <wsdl:port name="BasicHttpBinding_MetaService" binding="tns:BasicHttpBinding_MetaService">
+      <soap:address location="https://services.companywebcast.com/meta/1.1/metaservice.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
