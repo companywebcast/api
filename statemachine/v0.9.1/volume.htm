@@ -1,0 +1,48 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Demo : MediaRenderer, usage of setPlaylistPosition and getPlaylistPosition</title>
+    <script src="http://services.companywebcast.com/StateMachine/0.9.1/js/Cwc.StateMachine.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        var stateMachineInstance;
+
+        window.onload = function () {
+
+            Cwc.CreateStateMachine([{ Code: "gemeentetexel/20110831_1/nl"}], function (StateMachine, e) {
+                document.getElementById('container').appendChild(StateMachine.MediaRenderer);
+
+                stateMachineInstance = StateMachine;
+
+                StateMachine.State.CurrentTimeChangedEvent.Subscribe(function () {
+                    offset.innerHTML = StateMachine.State.getPlaylistPosition().Display();
+                });
+
+                // Set volume to max at load
+                SetVolume(100);
+
+            });
+
+        }
+
+        function SetVolume(volumeValue) {
+            // Volume can be set to values between 0 and 100.
+		    stateMachineInstance.MediaRenderer.setCurrentVolume(volumeValue);
+		    currentVolumeValue.innerHTML = volumeValue;
+		}
+
+    </script>
+</head>
+
+<body>
+
+	<div id="container" style="width:320px;height:240px;overflow:hidden;position:relative;"></div>
+	<div id="offset"></div>
+    <fieldset>
+        <legend>Volume</legend>
+        <button id="volumeMax" onclick="SetVolume(100.0);">Max</button>
+        <button id="volumeMin" onclick="SetVolume(0.0);">Min</button>
+        <span id="currentVolumeValue"/>
+    </fieldset>
+</body>
+</html>
